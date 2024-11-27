@@ -1,0 +1,81 @@
+# .github/workflows/deploy.yml: Deploys Symfony to GitHub Pages
+---
+name: Deploy Symfony to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      # Set up PHP
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.31.1
+        with:
+          php-version: "8.3"
+          extensions: mbstring, intl, pdo_mysql
+          tools: composer
+
+      # Cache Composer Dependencies
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # Install PHP Dependencies
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "18"
+
+      # Cache Node.js Dependencies
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v4.1.2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Install Node.js Dependencies
+      - name: Install Node.js dependencies
+        run: npm install
+
+      # Build Frontend Assets
+      - name: Build assets
+        run: npm run dev
+
+      # Build the Static Site
+      - name: Generate Static Site with Wget
+        run: |
+          export APP_ENV=prod
+          php -S 127.0.0.1:8000 -t public & # Start PHP server
+          sleep 10 # Wait for the server to start
+          wget --mirror --convert-links --adjust-extension \
+               --page-requisites --no-parent --level=1 \
+               http://127.0.0.1:8000 || true
+          mkdir -p docs
+          mv 127.0.0.1:8000/* docs/
+          rm -rf 127.0.0.1:8000
+
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs

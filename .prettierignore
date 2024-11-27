@@ -1,0 +1,3 @@
+#.prettierignore: Ignores files that should not be formatted by Prettier.
+
+.pre-commit-config.yaml

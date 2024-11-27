@@ -1,0 +1,60 @@
+@use "bootstrap" as *;
+
+// Global styles
+body {
+  background-color: skyblue;
+  font-family: "Roboto", sans-serif;
+  color: #333; // Default text color
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #0056b3; // A nice blue for headings
+  margin-bottom: 1rem;
+}
+
+.navbar {
+  background-color: #f8f9fa; // Light gray background for the navbar
+  border-bottom: 2px solid #0056b3; // Accent border
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #0056b3;
+
+  &:hover {
+    color: #003f7f; // Slightly darker blue on hover
+  }
+}
+
+.nav-link {
+  color: #333;
+
+  &:hover {
+    color: #0056b3; // Blue highlight on hover
+  }
+}
+
+.container {
+  padding: 2rem;
+}
+
+ul {
+  list-style-type: none; // Remove bullets
+  padding: 0;
+}
+
+li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+
+  &.odd {
+    background-color: rgba(0, 255, 0, 0.1); // Light green for odd items
+  }
+
+  &.even {
+    background-color: rgba(0, 0, 255, 0.1); // Light blue for even items
+  }
+}

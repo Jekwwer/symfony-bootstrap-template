@@ -1,0 +1,52 @@
+# .github/dependabot.yml: Automates dependency updates.
+
+version: 2
+updates:
+  # PHP dependencies managed by Composer
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      phpstan-packages:
+        patterns:
+          - "phpstan/*"
+      symfony-packages:
+        patterns:
+          - "symfony/*"
+      twig-packages:
+        patterns:
+          - "twig/*"
+    reviewers:
+      - "Jekwwer"
+    assignees:
+      - "Jekwwer"
+    commit-message:
+      prefix: "deps"
+    open-pull-requests-limit: 5
+
+  # Docker dependencies for the devcontainer
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer"
+    schedule:
+      interval: "monthly"
+    reviewers:
+      - "Jekwwer"
+    assignees:
+      - "Jekwwer"
+    commit-message:
+      prefix: "deps"
+    open-pull-requests-limit: 5
+
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: ".github"
+    schedule:
+      interval: "monthly"
+    reviewers:
+      - "Jekwwer"
+    assignees:
+      - "Jekwwer"
+    commit-message:
+      prefix: "deps"
+    open-pull-requests-limit: 5

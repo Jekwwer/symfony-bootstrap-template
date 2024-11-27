@@ -1,0 +1,84 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspaces/symfony-bootstrap-template",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "catppuccin.catppuccin-vsc",
+        "catppuccin.catppuccin-vsc-icons",
+        "dbaeumer.vscode-eslint",
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "felixfbecker.php-debug",
+        "streetsidesoftware.code-spell-checker",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "neilbrayfield.php-docblocker",
+        "redhat.vscode-yaml",
+        "ryannaddy.vscode-phpmd"
+      ],
+      "settings": {
+        "files.exclude": {
+          "**/vendor": true
+        },
+        "files.associations": {
+          "*.twig": "html"
+        },
+        "intelephense.environment.phpVersion": "8.3",
+        "twig-language-2.format.enable": true,
+        "[dockerfile]": {
+          "editor.rulers": [120]
+        },
+        "[html]": {
+          "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[markdown]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.rulers": [120]
+        },
+        "[php]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[yaml]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "editor.bracketPairColorization.enabled": true,
+        "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+        "editor.fontSize": 14,
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "editor.rulers": [88],
+        "files.autoSave": "afterDelay",
+        "files.autoSaveWhenNoErrors": true,
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "workbench.activityBar.location": "top",
+        "workbench.colorTheme": "Catppuccin Macchiato",
+        "workbench.iconTheme": "catppuccin-macchiato",
+        "yaml.format.enable": true
+      }
+    }
+  },
+  "name": "jekwwer/symfony-boostrap-template",
+  "postCreateCommand": "make install && pre-commit install",
+  "portsAttributes": {
+    "8000": {
+      "label": "Symfony Server"
+    }
+  },
+  "forwardPorts": [8000]
+}
